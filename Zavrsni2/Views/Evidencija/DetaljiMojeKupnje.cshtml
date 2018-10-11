@@ -1,0 +1,61 @@
+﻿@model Zavrsni2.Models.KosaraProizvod
+
+@{
+    ViewBag.Title = "DetaljiMojeKupnje";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DetaljiMojeKupnje</h2>
+
+<div class="container">
+    <h4>KosaraProizvod</h4>
+    <hr />
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    ID Proizvoda
+                </th>
+                <th>
+                    Naziv proizvoda
+                </th>
+                <th>
+                    Cijena
+                </th>
+                <th>
+                    Kolicina
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Detalji.KosaraProizvod)
+            {
+                if (item != null && item.Kolicina>0)
+                {
+                    <tr>
+                        <th>
+                            @item.ID
+                        </th>
+                        <th>
+                            @item.Proizvod.Ime
+                        </th>
+                        <th>
+                            @item.Proizvod.Cijena
+                        </th>
+                        <th>
+                            @item.Kolicina
+                        </th>
+
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+    <p>Saldo: @ViewBag.Saldo</p>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

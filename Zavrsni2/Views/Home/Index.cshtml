@@ -1,0 +1,605 @@
+﻿@*@model Zavrsni2.Controllers.HomeController*@
+@{
+    //ViewBag.Title = HttpContext.Current.User.IsInRole("Admin") + " " + HttpContext.Current.User.Identity.Name;
+}
+<link rel="stylesheet" type="text/css" href="~/Content/Proizvodi.css">
+<style>
+    td {
+        border-collapse: separate;
+        border-spacing: 1em;
+    }
+
+    .slick-slide {
+        margin: 0px 20px;
+    }
+
+        .slick-slide img {
+            width: 100%;
+        }
+
+    .slick-slider {
+        position: relative;
+        display: block;
+        box-sizing: border-box;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+        -khtml-user-select: none;
+        -ms-touch-action: pan-y;
+        touch-action: pan-y;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .slick-list {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+        .slick-list:focus {
+            outline: none;
+        }
+
+        .slick-list.dragging {
+            cursor: pointer;
+            cursor: hand;
+        }
+
+    .slick-slider .slick-track,
+    .slick-slider .slick-list {
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    .slick-track {
+        position: relative;
+        top: 0;
+        left: 0;
+        display: block;
+    }
+
+        .slick-track:before,
+        .slick-track:after {
+            display: table;
+            content: '';
+        }
+
+        .slick-track:after {
+            clear: both;
+        }
+
+    .slick-loading .slick-track {
+        visibility: hidden;
+    }
+
+    .slick-slide {
+        display: none;
+        float: left;
+        height: 100%;
+        min-height: 1px;
+    }
+
+    [dir='rtl'] .slick-slide {
+        float: right;
+    }
+
+    .slick-slide img {
+        display: block;
+    }
+
+    .slick-slide.slick-loading img {
+        display: none;
+    }
+
+    .slick-slide.dragging img {
+        pointer-events: none;
+    }
+
+    .slick-initialized .slick-slide {
+        display: block;
+    }
+
+    .slick-loading .slick-slide {
+        visibility: hidden;
+    }
+
+    .slick-vertical .slick-slide {
+        display: block;
+        height: auto;
+        border: 1px solid transparent;
+    }
+
+    .slick-arrow.slick-hidden {
+        display: none;
+    }
+</style>
+
+<div class="container mobile-hide">
+    <div class="row">
+        <section class="customer-logos slider">
+
+            @foreach (var item in ViewBag.ListaBrandova)
+            {
+                <div class="slide col-md-9">
+                    <img src="~/Content/Uploads/Thumbnails/@item.Slika">
+                </div>
+            }
+
+        </section>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-9">
+        @foreach (var item in ViewBag.ListaProizvoda)
+        {
+
+            <div class="col-sm-3" style="padding-bottom: 10px;padding-top:10px">
+                <div class="thumbnail">
+                    @*<img src="http://tech.firstpost.com/wp-content/uploads/2014/09/Apple_iPhone6_Reuters.jpg" alt="" class="img-responsive">*@
+                    <img src="~/Content/Uploads/Thumbnails/@item.Slika" alt="" class="img-responsive">
+
+                    <div class="caption">
+                        <h4 class="pull-right price" name="product_price">@item.Cijena KM</h4>
+                        <input name="product_price" value="@item.Cijena" type="hidden">
+                        <h4>
+                            <a href="#" data-name="product_name">@item.Ime</a>
+                        </h4>
+                        <p>@item.KratakOpis</p>
+                    </div>
+
+                    <div class="space-ten"></div>
+                    <div class btn-ground text-center">
+                        @if (item.Kolicina < 1)
+                        {
+                            <button value="@item.ID" id="" type="button" class="btn btn-warning btn-sm"> Nema u skladistu</button>
+                            
+                        }
+                        else
+                        {
+                            <button value="@item.ID" id="" type="button" class="dodaj btn btn-primary sc-add-to-cart btn-sm "><i class="fa fa-shopping-cart"></i> Dodaj u kosaru</button>
+
+                        }
+                        <button value="@item.ID" id="batn" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Detaljnije</button>
+                    </div>
+
+                    <div class="space-ten">
+
+                    </div>
+
+                </div>
+            </div>
+            <input class="hidden id" />
+        }
+
+    </div>
+    <aside class="col-md-3">
+
+        <!-- Cart submit form -->
+        <form action="#" method="POST">
+            <!-- SmartCart element -->
+            <div id="smartcart" class="panel panel-default sc-cart sc-theme-default">
+                <input type="hidden" name="cart_list" id="cart_list" />
+                <div class="panel-heading sc-cart-heading">
+                    Shopping Cart
+                    <span class="sc-cart-count badge">1</span>
+                </div>
+
+                <div class="list-group sc-cart-item-list">
+                    <div id="izbrisi" class="sc-cart-item list-group-item" data-unique-key="1528315106377">
+                        @*<button type="button" class="sc-cart-remove">×</button>*@
+                        @*<img class="img-responsive pull-left" src="http://placehold.it/250x150/2aabd2/ffffff?text=Product+2">*@
+                        <h4 id="nazivProizvoda" class="list-group-item-heading"></h4>
+                        @*<p class="list-group-item-text">Product details</p>*@
+                        @*<div class="sc-cart-item-summary">*@
+                        @*<span class="sc-cart-item-price">$5,435.50</span> ×*@
+                        @*<input type="number" min="1" max="1000" class="sc-cart-item-qty" value="1"> =
+                                <span class="sc-cart-item-amount">$5,435.50</span>
+                            </div>*@
+                        <table id="kosarica">
+                            <thead>
+                                <tr><th>Naziv</th><th>Cijena</th><th>Kolicina</th>
+                            </thead>
+                            <tbody>
+                                <tr class="tr">
+                                    <td class="naziv"></td>
+                                    <td class="cijena"></td>
+                                    <td class="kolicina"></td>
+                                    <td class="azurirajTD"></td>
+                                    <td class="izbrisi"></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="panel-footer sc-toolbar">
+                    <div class="sc-cart-summary">
+                        <div class="sc-cart-summary-subtotal">
+                            Ukupno:
+                            <span class="sc-cart-subtotal">$5,435.50</span>
+                        </div>
+                    </div>
+                    <div class="sc-cart-toolbar">
+                        <button class="btn btn-info sc-cart-checkout" type="button" id="zavrsiKupnju">Zavrsi kupnju</button>
+                        <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModal">Isprazni kosaricu</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </aside>
+</div>
+<div class="modal fade product_view" id="product_view">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                <h3 class="modal-title" id="naslov"></h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 product_img">
+                        <img id="slika" class="img-responsive">
+                    </div>
+                    <div class="col-md-6 product_content">
+                        <h4>
+                            Product Id:
+                            <span id="idProizvoda"></span>
+                        </h4>
+
+                        <p id="opis"></p>
+                        <h3 class="cost">
+                            <span class="" id="cijena">KM</span> @*POPUST*@@*<small class="pre-cost"><span class="glyphicon glyphicon-usd"></span> 60.00</small>*@
+                        </h3>
+                        @*<div class="row">
+
+
+                            </div>
+                            <div class="space-ten"></div>
+                            <div class="btn-ground">
+                                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Dodaj u kosaru</button>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Jeste li sigurni da zelite isprazniti kosaricu ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+
+                <button type="button" id="isprazniKosaricu" class="btn btn-danger" data-dismiss="modal">Isprazni</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">*@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+
+<script>
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    function delete_cookie(name) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function checkCookie() {
+        var user = getCookie("webShop");
+        if (user != "") {
+            console.log("dobrodosao natrag " + user);
+            return user;
+        } else {
+            var d = new Date();
+            user = d.getFullYear().toString() + d.getDay().toString() + d.getHours().toString() + d.getMinutes().toString() + d.getSeconds().toString() + d.getMilliseconds().toString();
+            if (user != "" && user != null) {
+                setCookie("webShop", user, 30);
+                return user;
+            }
+        }
+    }
+    //MAIN
+    window.onload = function () {
+        checkCookie();
+        checkBasket();
+
+        //OsvjeziBrojac()
+    }
+
+    var kolicina = $(".tr .kolicina");
+
+    function checkBasket() {
+        var cookie = checkCookie();
+        var cookiePersonalId = cookie;
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("provjeriKosaricu", "kosara")',
+                dataType: 'json',
+                data: { cookie: cookiePersonalId },
+                success: function (data) {
+                    var naziv = $(".tr .naziv");
+                    var cijena = $(".tr .cijena");
+                    var azuriraj = $(".azurirajTD");
+                    var izbrisi = $(".izbrisi");
+                    var suma = 0;
+                    //console.log(data);
+                    //var trHTML = '<table><thead><tr><th>Naziv</th><th>Cijena</th><th>Kolicina</th>';
+                    //$("#kosarica").empty();
+                    $.each(data, function (i, item) {
+                        naziv.append(`<tr><td>${item.Proizvod.Ime}</td>"`);
+                        cijena.append(`<tr><td>${item.Proizvod.Cijena}</td>`);
+                        kolicina.append(`<tr><td clas=aa"><input data-id=${item.Proizvod.ID} type="number" min="1" max="1000" class="sc-cart-item-qty" value="${item.Kolicina}">`);
+                        azuriraj.append(`<tr> <td><button type="submit" class="btn azuriraj" data-id=${item.Proizvod.ID} >Azuriraj</button></td></tr>"`)
+                        izbrisi.append(`<tr><td><a href="#"  class="izbrisiTD glyphicon glyphicon-remove" style="color:red" data-id=${item.Proizvod.ID}></td></tr>`)
+                        suma += item.Proizvod.Cijena * item.Kolicina
+                    });
+
+                    $(".badge").html(data.length);
+                    $(".sc-cart-subtotal").text(suma.toString()+" KM");
+
+                },
+                error: (function () {
+                    //$(".errorLogin").show();
+                    console.log("sibe keru");
+                })
+            });
+    };
+
+    //MODAL ZA PRIKAZ PODATAKA O PROIZVODU
+    $("button#batn").click(function () {
+        //console.log(this.value);
+        idProizvoda = this.value;
+        //console.log(idProizvoda)
+        $.ajax({
+        type: "GET",
+        url: "@Url.Action("GetId")",
+        data: { id: idProizvoda },
+        success: function (data) {
+            var slika = "/Content/Uploads/Thumbnails/" + data.Slika;
+            $("#naslov").text(data.Ime)
+            $("#opis").text(data.Opis)
+            $("#cijena").text(data.Cijena+" KM")
+            $("#idProizvoda").text(data.ID)
+            $("#slika").attr("src",slika)
+        },
+        error: function () {
+            console.log("Greska")
+        }
+    });
+    });
+
+    $('.customer-logos').slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 1000,
+        arrows: false,
+        dots: false,
+        pauseOnHover: true,
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 4
+            }
+        }, {
+            breakpoint: 520,
+            settings: {
+                slidesToShow: 3
+            }
+        }]
+    });
+    //DOHVATI IZ KOSARE VRIJEDNOST
+    function Dohvati(el,id)
+    {
+        let cookie = checkCookie();
+        var element = document.getElementsByClassName("sc-cart-item-qty");
+        //console.log(element);
+        for (var i = 0; i < element.length; i++) {
+            //console.log(element);
+
+            if ((element[i].value != null))
+            {
+
+                //console.log(element[i].firstElementChild.attributes[0].textContent)
+                if (element[i].dataset.id == id)
+                {
+                    //console.log(element[i].firstElementChild.attributes[0].textContent);
+                    //console.log(element[i].firstElementChild.attributes[5].value++);
+                    //console.log(element[i].value++);
+                    return element[i].value;
+                }
+            }
+            }
+        }
+
+    //ne radi
+    function PovecajKolicinu(id,cookie,kolicina)
+    {
+
+
+        $.ajax({
+            type: "GET",
+            data: { id: id, cookie: cookie, kolicina: kolicina },
+            url: "@Url.Action("PovecajKolicinu", "kosara")",
+            success: function (data) {
+            console.log("radiiiii");
+            },
+        error: function () {
+            console.log("ili ne radi");
+            }
+        })
+    }
+    //DODAVANJE U KOSARU
+    $("button.dodaj").click(function () {
+        var naziv = $(".tr .naziv");
+        var cijena = $(".tr .cijena");
+        var kolicina = $(".tr .kolicina");
+        //naziv.append("<tr><td>aa</td>");
+        //cijena.append("<tr><td>aa</td>");
+        //kolicina.append("<tr><td>aa</td></tr>");
+        var cookie = checkCookie();
+        var id = this.value;
+        var proizvod = $(this);
+
+        //console.log(proizvod);
+        PovecajKolicinu(id, cookie, Dohvati("", id));
+        //checkBasket();
+
+        $.ajax({
+        type: "GET",
+        data: { cookie: cookie, idProizvoda:id },
+        url: "@Url.Action("DodajUKosaru", "kosara")",
+        success: function (data) {
+
+            //console.log(data);
+            console.log("TESTIRANJE KLIKA NA BATN DODAJ");
+            checkBasket();
+            //$(this).addClass("disabled");
+        },
+        error: function (jqXHR, exception, errorThrown ) {
+            console.log(errorThrown );
+            //console.log("huuuuuuuuuuuuuuuu");
+        }
+        })
+
+        location.reload();
+    }
+
+    );
+
+    //distinct funkcija
+    Array.prototype.unique = function () {
+        return this.filter(function (value, index, self) {
+            return self.indexOf(value) === index;
+        });
+    }
+
+    $(".kolicina:last-child").on("click", function (event) {
+        var $input = $(this);
+        console.log($input);
+    })
+
+    //isprazni kosaricu
+    $("#isprazniKosaricu").click(function () {
+        var cookie = checkCookie();
+
+        setCookie("webShop", "", -1);
+        location.reload();
+    })
+
+    $(".azurirajTD").on("click", ".azuriraj", function () {
+        let id=($(this)[0].dataset.id)
+        let kolicina = Dohvati("", id)
+        let cookie = checkCookie();
+
+        $.ajax({
+            type: "GET",
+            data: { id: id, cookie: cookie, kolicina: kolicina },
+            url: "@Url.Action("PovecajKolicinu", "kosara")",
+            success: function (data) {
+
+                console.log("radiiiii");
+
+            },
+            error: function () {
+
+                console.log("ili ne radi");
+
+            }
+        })
+
+
+    })
+
+    //izbrisi proizvod
+    $(".izbrisi").on("click", ".izbrisiTD", function () {
+        console.log("izbrisi")
+        let cookie = checkCookie();
+        let id = $(this)[0].dataset.id;
+        
+        $.ajax({
+            type: "GET",
+            data: { cookie: cookie, id: id  },
+            url: "@Url.Action("IzbrisiIzKosare", "kosara")",
+            success: function (data) {
+
+                console.log("radiiiii");
+                location.reload();
+            },
+            error: function () {
+
+                console.log("ili ne radi");
+
+            }
+        })
+    })
+    $("#zavrsiKupnju").click(function () {
+
+        let cookie = checkCookie();
+        let email = prompt("Unesite mail (na mail ćemo vam poslati predračum")
+        $.ajax({
+            type: "GET",
+            data: { cookie: cookie, email: email },
+            url: "@Url.Action("ZavrsiKupnju", "kosara")",
+            success: function (data) {
+
+                console.log("radiiiii");
+                delete_cookie("webShop");
+            },
+            error: function () {
+
+                console.log("ili ne radi");
+
+            }
+        })
+    })
+
+</script>

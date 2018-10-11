@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WebShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brandovi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slika" Type="varchar" MaxLength="50" />
+          <Property Name="Ime" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kategorija">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kosara">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Datum" Type="date" />
+          <Property Name="Cookie" Type="varchar" MaxLength="50" />
+          <Property Name="JeLiKupljeno" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="JeLiIsporuceno" Type="bit" />
+        </EntityType>
+        <EntityType Name="KosaraProizvod">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kosara_ID" Type="int" />
+          <Property Name="Proizvod_ID" Type="int" />
+          <Property Name="Kolicina" Type="int" />
+        </EntityType>
+        <EntityType Name="Proizvod">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slika" Type="varchar" MaxLength="200" />
+          <Property Name="Ime" Type="varchar" MaxLength="50" />
+          <Property Name="Opis" Type="varchar" MaxLength="50" />
+          <Property Name="DatumDodavanje" Type="date" />
+          <Property Name="Cijena" Type="float" />
+          <Property Name="KratakOpis" Type="varchar" MaxLength="50" />
+          <Property Name="Kategorija_ID" Type="int" />
+          <Property Name="Kolicina" Type="int" />
+          <Property Name="ProdanaKolicina" Type="int" />
+        </EntityType>
+        <EntityType Name="Slider">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slika" Type="varchar" MaxLength="50" />
+          <Property Name="JeLiPrikazana" Type="bigint" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Uloga">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="varchar" MaxLength="50" />
+          <Property Name="Opis" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="varchar" MaxLength="50" />
+          <Property Name="Prezime" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Pass" Type="varchar" MaxLength="50" />
+          <Property Name="Broj_mobitela" Type="varchar" MaxLength="50" />
+          <Property Name="Uloga" Type="varchar" MaxLength="50" />
+          <Property Name="ID_Uloga" Type="int" />
+        </EntityType>
+        <Association Name="FK_KosaraProizvod_Kosara">
+          <End Role="Kosara" Type="Self.Kosara" Multiplicity="0..1" />
+          <End Role="KosaraProizvod" Type="Self.KosaraProizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kosara">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KosaraProizvod">
+              <PropertyRef Name="Kosara_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KosaraProizvod_Proizvod">
+          <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="0..1" />
+          <End Role="KosaraProizvod" Type="Self.KosaraProizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvod">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KosaraProizvod">
+              <PropertyRef Name="Proizvod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proizvod_Kategorija">
+          <End Role="Kategorija" Type="Self.Kategorija" Multiplicity="0..1" />
+          <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorija">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proizvod">
+              <PropertyRef Name="Kategorija_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Uloga">
+          <End Role="Uloga" Type="Self.Uloga" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uloga">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Uloga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebShopModelStoreContainer">
+          <EntitySet Name="Brandovi" EntityType="Self.Brandovi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategorija" EntityType="Self.Kategorija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kosara" EntityType="Self.Kosara" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KosaraProizvod" EntityType="Self.KosaraProizvod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proizvod" EntityType="Self.Proizvod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Slider" EntityType="Self.Slider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uloga" EntityType="Self.Uloga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_KosaraProizvod_Kosara" Association="Self.FK_KosaraProizvod_Kosara">
+            <End Role="Kosara" EntitySet="Kosara" />
+            <End Role="KosaraProizvod" EntitySet="KosaraProizvod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KosaraProizvod_Proizvod" Association="Self.FK_KosaraProizvod_Proizvod">
+            <End Role="Proizvod" EntitySet="Proizvod" />
+            <End Role="KosaraProizvod" EntitySet="KosaraProizvod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proizvod_Kategorija" Association="Self.FK_Proizvod_Kategorija">
+            <End Role="Kategorija" EntitySet="Kategorija" />
+            <End Role="Proizvod" EntitySet="Proizvod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Uloga" Association="Self.FK_User_Uloga">
+            <End Role="Uloga" EntitySet="Uloga" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WebShopEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brandovi" EntityType="WebShopModel.Brandovi" />
+          <EntitySet Name="Kategorija" EntityType="WebShopModel.Kategorija" />
+          <EntitySet Name="Kosara" EntityType="WebShopModel.Kosara" />
+          <EntitySet Name="KosaraProizvod" EntityType="WebShopModel.KosaraProizvod" />
+          <EntitySet Name="Proizvod" EntityType="WebShopModel.Proizvod" />
+          <EntitySet Name="Slider" EntityType="WebShopModel.Slider" />
+          <EntitySet Name="sysdiagrams" EntityType="WebShopModel.sysdiagrams" />
+          <EntitySet Name="Uloga" EntityType="WebShopModel.Uloga" />
+          <EntitySet Name="User" EntityType="WebShopModel.User" />
+          <AssociationSet Name="FK_Proizvod_Kategorija" Association="WebShopModel.FK_Proizvod_Kategorija">
+            <End Role="Kategorija" EntitySet="Kategorija" />
+            <End Role="Proizvod" EntitySet="Proizvod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KosaraProizvod_Kosara" Association="WebShopModel.FK_KosaraProizvod_Kosara">
+            <End Role="Kosara" EntitySet="Kosara" />
+            <End Role="KosaraProizvod" EntitySet="KosaraProizvod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KosaraProizvod_Proizvod" Association="WebShopModel.FK_KosaraProizvod_Proizvod">
+            <End Role="Proizvod" EntitySet="Proizvod" />
+            <End Role="KosaraProizvod" EntitySet="KosaraProizvod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Uloga" Association="WebShopModel.FK_User_Uloga">
+            <End Role="Uloga" EntitySet="Uloga" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Brandovi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slika" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Kategorija">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Proizvod" Relationship="WebShopModel.FK_Proizvod_Kategorija" FromRole="Kategorija" ToRole="Proizvod" />
+        </EntityType>
+        <EntityType Name="Kosara">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Datum" Type="DateTime" Precision="0" />
+          <Property Name="Cookie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JeLiKupljeno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KosaraProizvod" Relationship="WebShopModel.FK_KosaraProizvod_Kosara" FromRole="Kosara" ToRole="KosaraProizvod" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JeLiIsporuceno" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="KosaraProizvod">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kosara_ID" Type="Int32" />
+          <Property Name="Proizvod_ID" Type="Int32" />
+          <Property Name="Kolicina" Type="Int32" />
+          <NavigationProperty Name="Kosara" Relationship="WebShopModel.FK_KosaraProizvod_Kosara" FromRole="KosaraProizvod" ToRole="Kosara" />
+          <NavigationProperty Name="Proizvod" Relationship="WebShopModel.FK_KosaraProizvod_Proizvod" FromRole="KosaraProizvod" ToRole="Proizvod" />
+        </EntityType>
+        <EntityType Name="Proizvod">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slika" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Opis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DatumDodavanje" Type="DateTime" Precision="0" />
+          <Property Name="Cijena" Type="Double" />
+          <Property Name="KratakOpis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Kategorija_ID" Type="Int32" />
+          <NavigationProperty Name="Kategorija" Relationship="WebShopModel.FK_Proizvod_Kategorija" FromRole="Proizvod" ToRole="Kategorija" />
+          <NavigationProperty Name="KosaraProizvod" Relationship="WebShopModel.FK_KosaraProizvod_Proizvod" FromRole="Proizvod" ToRole="KosaraProizvod" />
+          <Property Name="Kolicina" Type="Int32" />
+          <Property Name="ProdanaKolicina" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Slider">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slika" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JeLiPrikazana" Type="Int64" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Uloga">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Opis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="WebShopModel.FK_User_Uloga" FromRole="Uloga" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Broj_mobitela" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Uloga" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Uloga" Type="Int32" />
+          <NavigationProperty Name="Uloga1" Relationship="WebShopModel.FK_User_Uloga" FromRole="User" ToRole="Uloga" />
+        </EntityType>
+        <Association Name="FK_Proizvod_Kategorija">
+          <End Type="WebShopModel.Kategorija" Role="Kategorija" Multiplicity="0..1" />
+          <End Type="WebShopModel.Proizvod" Role="Proizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorija">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Proizvod">
+              <PropertyRef Name="Kategorija_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KosaraProizvod_Kosara">
+          <End Type="WebShopModel.Kosara" Role="Kosara" Multiplicity="0..1" />
+          <End Type="WebShopModel.KosaraProizvod" Role="KosaraProizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kosara">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KosaraProizvod">
+              <PropertyRef Name="Kosara_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KosaraProizvod_Proizvod">
+          <End Type="WebShopModel.Proizvod" Role="Proizvod" Multiplicity="0..1" />
+          <End Type="WebShopModel.KosaraProizvod" Role="KosaraProizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvod">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KosaraProizvod">
+              <PropertyRef Name="Proizvod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Uloga">
+          <End Type="WebShopModel.Uloga" Role="Uloga" Multiplicity="0..1" />
+          <End Type="WebShopModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uloga">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Uloga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebShopModelStoreContainer" CdmEntityContainer="WebShopEntities1">
+          <EntitySetMapping Name="Brandovi">
+            <EntityTypeMapping TypeName="WebShopModel.Brandovi">
+              <MappingFragment StoreEntitySet="Brandovi">
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorija">
+            <EntityTypeMapping TypeName="WebShopModel.Kategorija">
+              <MappingFragment StoreEntitySet="Kategorija">
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kosara">
+            <EntityTypeMapping TypeName="WebShopModel.Kosara">
+              <MappingFragment StoreEntitySet="Kosara">
+                <ScalarProperty Name="JeLiIsporuceno" ColumnName="JeLiIsporuceno" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="JeLiKupljeno" ColumnName="JeLiKupljeno" />
+                <ScalarProperty Name="Cookie" ColumnName="Cookie" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KosaraProizvod">
+            <EntityTypeMapping TypeName="WebShopModel.KosaraProizvod">
+              <MappingFragment StoreEntitySet="KosaraProizvod">
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+                <ScalarProperty Name="Proizvod_ID" ColumnName="Proizvod_ID" />
+                <ScalarProperty Name="Kosara_ID" ColumnName="Kosara_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proizvod">
+            <EntityTypeMapping TypeName="WebShopModel.Proizvod">
+              <MappingFragment StoreEntitySet="Proizvod">
+                <ScalarProperty Name="ProdanaKolicina" ColumnName="ProdanaKolicina" />
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+                <ScalarProperty Name="Kategorija_ID" ColumnName="Kategorija_ID" />
+                <ScalarProperty Name="KratakOpis" ColumnName="KratakOpis" />
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+                <ScalarProperty Name="DatumDodavanje" ColumnName="DatumDodavanje" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Slider">
+            <EntityTypeMapping TypeName="WebShopModel.Slider">
+              <MappingFragment StoreEntitySet="Slider">
+                <ScalarProperty Name="JeLiPrikazana" ColumnName="JeLiPrikazana" />
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WebShopModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uloga">
+            <EntityTypeMapping TypeName="WebShopModel.Uloga">
+              <MappingFragment StoreEntitySet="Uloga">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="WebShopModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID_Uloga" ColumnName="ID_Uloga" />
+                <ScalarProperty Name="Uloga" ColumnName="Uloga" />
+                <ScalarProperty Name="Broj_mobitela" ColumnName="Broj_mobitela" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

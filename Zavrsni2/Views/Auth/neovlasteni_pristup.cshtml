@@ -1,0 +1,105 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>neovlasteni_pristup</title>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner">
+            <div class="su-signe">
+                <div class="outer">
+                    <div class="inner">
+                        !
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="outer-info">
+        <div class="inner-info">
+            Neovlašteni pristup!
+        </div>
+        <div class="inner-info2">
+            <a href="@Url.Action("index","home")">Naslovna</a>
+            <a href="#" onclick="window.history.go(-1);return false;">Natrag</a>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    div.outer {
+        height: 550px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div.inner {
+        margin: 0
+    }
+
+    .su-signe {
+        background-color: #faba00;
+        width: 250px;
+        height: 250px;
+        border-radius: 20px;
+        border: 5px solid black;
+        box-shadow: 0px 0px 0px 5px #faba00;
+        transform: rotate(45deg)
+    }
+
+        .su-signe .outer {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .su-signe .inner {
+            margin: 0;
+            transform: rotate(-45deg);
+            font-size: 292px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+    .outer-info {
+        width: 100%;
+        text-align: center;
+    }
+
+    .inner-info {
+        text-align: center;
+        font-size: 38px;
+        font-family: Arial;
+        background-color: #faba00;
+        padding: 5px;
+    }
+
+    .inner-info2 {
+        padding: 10px;
+        text-align: center;
+        font-size: 38px;
+        font-family: Arial;
+        background-color: transparent;
+    }
+
+    a {
+        text-align: center;
+        padding: 5px;
+        text-decoration: none;
+        background-color: #373435;
+        line-height: 40px;
+        font-family: Arial;
+        font-size: 25px;
+        color: #faba00;
+        border-radius: 6px;
+    }
+</style>

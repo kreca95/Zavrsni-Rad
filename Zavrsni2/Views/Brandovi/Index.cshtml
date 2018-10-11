@@ -1,0 +1,42 @@
+﻿@model Zavrsni2.Controllers.BrandoviController
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToUpper()</h2>
+<a class="btn btn-success" href="@Url.Action("Dodaj","Brandovi")">Dodaj</a>
+
+<table class="table table-striped" id="tablica">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Slika</th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in ViewBag.ListaBrandova)
+        {
+        <tr>
+            <td>@item.Ime</td>
+            <td>@item.Slika</td>
+
+            <td>
+                <a href="@Url.Action("Edit","Brandovi",new { id=item.ID})"><i class="fa fa-2x fa-edit" style="color:blue"></i></a>
+            </td>
+            <td>
+                <a href="@Url.Action("Delete","Brandovi",new { id=item.ID})"><i class="fa fa-2x fa-remove" style="color:red"></i></a>
+
+            </td>
+
+        </tr>
+
+        }
+
+    </tbody>
+</table>

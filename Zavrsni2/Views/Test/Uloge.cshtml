@@ -1,0 +1,170 @@
+﻿
+@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Uloge</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function checkCookie() {
+        var user = getCookie("webShop");
+        if (user != "") {
+            console.log("dobrodosao natrag " + user);
+            return user;
+        } else {
+            var d = new Date();
+            user = d.getFullYear().toString() + d.getDay().toString() + d.getHours().toString() + d.getMinutes().toString() + d.getSeconds().toString() + d.getMilliseconds().toString();
+            if (user != "" && user != null) {
+                setCookie("webShop", user, 30);
+                return user;
+            }
+        }
+    }
+
+    window.onload = function () {
+        checkCookie();
+        checkBasket();
+    }
+
+    function checkBasket() {
+        var cookie = checkCookie();
+        var cookiePersonalId = cookie;
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Brojac", "kosara")',
+                dataType: 'json',
+                data: { cookie: cookiePersonalId },
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        //console.log(data[i]);
+                        $("#nazivProiozvoda").append("<p value=" + data.ID+ ">"+ data[i].Ime + " " + data[i].Cijena + " x" + "</p" + "<br>");
+                    }
+                    console.log(data);
+                    $(".badge").html(data.length + 1);
+
+                },
+                error: (function () {
+                    //$(".errorLogin").show();
+                    //console.log(data);
+                })
+            });
+    };
+
+        var clickedElement;
+        $("body").on("click", ".su-btn", function () {
+            var servisId = $(this).data("id");
+            clickedElement = $(this);
+            addToBasket(servisId);
+            CountItemsAdd();
+        });
+    $("button#batn").click(function () {
+        //console.log(this.value);
+        idProizvoda = this.value;
+        //console.log(idProizvoda)
+        $.ajax({
+        type: "GET",
+        url: "@Url.Action("GetId")",
+        data: { id: idProizvoda },
+        success: function (data) {
+            var slika = "/Content/Uploads/Thumbnails/" + data.Slika;
+            $("#naslov").text(data.Ime)
+            $("#opis").text(data.Opis)
+            $("#cijena").text(data.Cijena+" KM")
+            $("#idProizvoda").text(data.ID)
+            $("#slika").attr("src",slika)
+        },
+        error: function () {
+            console.log("Greska")
+        }
+    });
+    });
+
+    @*$.ajax({
+        type: "GET",
+        url: "@Url.Action("GetId")",
+        data: { id: idProizvoda },
+        success: function () {
+            alert(id)
+        },
+        error: function () {
+            alert("Greska")
+        }
+    });*@
+
+    $('.customer-logos').slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 1000,
+        arrows: false,
+        dots: false,
+        pauseOnHover: true,
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 4
+            }
+        }, {
+            breakpoint: 520,
+            settings: {
+                slidesToShow: 3
+            }
+        }]
+    });
+
+    $("button#dodaj").click(function () {
+        var cookie = checkCookie();
+        var id = this.value;
+        //console.log(id);
+        $.ajax({
+        type: "GET",
+        data: { cookie: cookie, idProizvoda:id },
+        url: "@Url.Action("DodajUKosaru", "kosara")",
+        success: function (data) {
+            console.log(data);
+            checkBasket();
+
+        },
+        error: function () {
+            //console.log("sibe");
+            console.log("huuuuuuuuuuuuuuuu");
+        }
+        })
+    });
+</script>

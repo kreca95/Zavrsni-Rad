@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Zavrsni2.Models.KosaraProizvod>
+
+@{
+    ViewBag.Title = "Detalji";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Detalji</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">
+                Proizvodi
+            </th>
+            <th scope="col">
+                Kolicina
+            </th>
+            <th>
+                Cijena
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if(item.Kolicina > 0)
+            {
+
+                <tr scope="row">
+                    <th>
+                        @item.Proizvod.Ime
+                    </th>
+                    <th>
+
+                        <p>@item.Kolicina</p>
+
+
+                    </th>
+                    <th>
+                        @item.Proizvod.Cijena
+                    </th>
+                </tr>
+                }
+
+            }
+    </tbody>
+    <tfoot>
+        Saldo:@Model.Sum(x=>x.Proizvod.Cijena * x.Kolicina) 
+      
+    </tfoot>
+</table>

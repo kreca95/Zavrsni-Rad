@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Zavrsni2.Models.User>
+
+@{
+    ViewBag.Title = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString(); ;
+    Layout = "~/Views/Shared/_Admin.cshtml";
+
+}
+
+<h2>KORISNICI</h2>
+<style>
+    table {
+        width: 100%;
+        table-layout: fixed;
+    }
+</style>
+<p>
+    <a class="btn btn-success" href="@Url.Action("Create","users")">Dodaj</a>
+</p>
+<table class="table table-striped" id="tablica">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                Broj mobitela
+            </th>
+            <th>
+                Naziv uloge
+            </th>
+            @*<th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Broj_mobitela)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uloga1.Naziv)
+            </td>
+
+            @*<td>@Html.ActionLink("uredi","UrediKorisnika",new { id = item.ID })</td>*@
+
+        </tr>
+}
+    </tbody>
+
+</table>

@@ -1,0 +1,110 @@
+﻿@model  IEnumerable<Zavrsni2.Models.Kosara>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<style>
+</style>
+<h2>Evidencija (klikom na ID mozete dobiti vise informacija o kupnji)</h2>
+
+<table class="table table-striped" id="tablica">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                E-mail
+            </th>
+            <th>
+                Je li kupljeno
+            </th>
+            <th>
+                Isporuka
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <th class="detail">
+                        @item.ID
+                    </th>
+                    <th>
+                        @item.Email
+                    </th>
+                    <th>
+
+                        @if (item.JeLiKupljeno == null)
+                        {
+                            item.JeLiKupljeno = "nije";
+                        }
+                        @item.JeLiKupljeno
+                    </th>
+                    <th>
+                        @if (item.JeLiIsporuceno == true)
+                        {
+                            <strong>ISPORUCENO</strong>
+                        }
+                        else
+                        {
+                            <strong>NIJE ISPORUCENO</strong>
+                        }
+
+                    </th>
+                    <th>
+                        @if (item.JeLiIsporuceno != true)
+                        {
+
+                            <button value="@item.ID" type="submit" class="btn btn-success">ISPORUCI</button>
+
+                        }
+                        else
+                        {
+                            <button value="@item.ID" type="submit" class="btn btn-danger">PREKINI ISPORUKU</button>
+                        }
+                    </th>
+                    <th>
+                        @Html.ActionLink("Detalji","Detalji", new { id = item.ID },new { @class="btn btn-info"})
+                    </th>
+
+                </tr>
+        }
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+    $(".btn").click(function () {
+        let id = $(this).val();
+        console.log(id);
+        $.ajax({
+            type: "GET",
+            data: {id:id },
+            url: "@Url.Action("Isporuci")",
+            success: function (data) {
+
+
+                console.log("radiiiii");
+
+            },
+            error: function () {
+
+                console.log("ili ne radi");
+
+            }
+        })
+        location.reload();
+        location.reload();
+    })
+
+    $(".detail").click(function () {
+        console.log("sddsa")
+    })
+</script>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebShopModelStoreContainer" CdmEntityContainer="WebShopEntities1">
+    <EntitySetMapping Name="Brandovi">
+      <EntityTypeMapping TypeName="WebShopModel.Brandovi">
+        <MappingFragment StoreEntitySet="Brandovi">
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Slika" ColumnName="Slika" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategorija">
+      <EntityTypeMapping TypeName="WebShopModel.Kategorija">
+        <MappingFragment StoreEntitySet="Kategorija">
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kosara">
+      <EntityTypeMapping TypeName="WebShopModel.Kosara">
+        <MappingFragment StoreEntitySet="Kosara">
+          <ScalarProperty Name="JeLiIsporuceno" ColumnName="JeLiIsporuceno" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="JeLiKupljeno" ColumnName="JeLiKupljeno" />
+          <ScalarProperty Name="Cookie" ColumnName="Cookie" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KosaraProizvod">
+      <EntityTypeMapping TypeName="WebShopModel.KosaraProizvod">
+        <MappingFragment StoreEntitySet="KosaraProizvod">
+          <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+          <ScalarProperty Name="Proizvod_ID" ColumnName="Proizvod_ID" />
+          <ScalarProperty Name="Kosara_ID" ColumnName="Kosara_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proizvod">
+      <EntityTypeMapping TypeName="WebShopModel.Proizvod">
+        <MappingFragment StoreEntitySet="Proizvod">
+          <ScalarProperty Name="ProdanaKolicina" ColumnName="ProdanaKolicina" />
+          <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+          <ScalarProperty Name="Kategorija_ID" ColumnName="Kategorija_ID" />
+          <ScalarProperty Name="KratakOpis" ColumnName="KratakOpis" />
+          <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+          <ScalarProperty Name="DatumDodavanje" ColumnName="DatumDodavanje" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Slika" ColumnName="Slika" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Slider">
+      <EntityTypeMapping TypeName="WebShopModel.Slider">
+        <MappingFragment StoreEntitySet="Slider">
+          <ScalarProperty Name="JeLiPrikazana" ColumnName="JeLiPrikazana" />
+          <ScalarProperty Name="Slika" ColumnName="Slika" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="WebShopModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uloga">
+      <EntityTypeMapping TypeName="WebShopModel.Uloga">
+        <MappingFragment StoreEntitySet="Uloga">
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="WebShopModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="ID_Uloga" ColumnName="ID_Uloga" />
+          <ScalarProperty Name="Uloga" ColumnName="Uloga" />
+          <ScalarProperty Name="Broj_mobitela" ColumnName="Broj_mobitela" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

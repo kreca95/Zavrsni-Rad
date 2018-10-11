@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="WebShopEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Brandovi" EntityType="WebShopModel.Brandovi" />
+    <EntitySet Name="Kategorija" EntityType="WebShopModel.Kategorija" />
+    <EntitySet Name="Kosara" EntityType="WebShopModel.Kosara" />
+    <EntitySet Name="KosaraProizvod" EntityType="WebShopModel.KosaraProizvod" />
+    <EntitySet Name="Proizvod" EntityType="WebShopModel.Proizvod" />
+    <EntitySet Name="Slider" EntityType="WebShopModel.Slider" />
+    <EntitySet Name="sysdiagrams" EntityType="WebShopModel.sysdiagrams" />
+    <EntitySet Name="Uloga" EntityType="WebShopModel.Uloga" />
+    <EntitySet Name="User" EntityType="WebShopModel.User" />
+    <AssociationSet Name="FK_Proizvod_Kategorija" Association="WebShopModel.FK_Proizvod_Kategorija">
+      <End Role="Kategorija" EntitySet="Kategorija" />
+      <End Role="Proizvod" EntitySet="Proizvod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KosaraProizvod_Kosara" Association="WebShopModel.FK_KosaraProizvod_Kosara">
+      <End Role="Kosara" EntitySet="Kosara" />
+      <End Role="KosaraProizvod" EntitySet="KosaraProizvod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KosaraProizvod_Proizvod" Association="WebShopModel.FK_KosaraProizvod_Proizvod">
+      <End Role="Proizvod" EntitySet="Proizvod" />
+      <End Role="KosaraProizvod" EntitySet="KosaraProizvod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Uloga" Association="WebShopModel.FK_User_Uloga">
+      <End Role="Uloga" EntitySet="Uloga" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Brandovi">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Slika" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Kategorija">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Proizvod" Relationship="WebShopModel.FK_Proizvod_Kategorija" FromRole="Kategorija" ToRole="Proizvod" />
+  </EntityType>
+  <EntityType Name="Kosara">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Datum" Type="DateTime" Precision="0" />
+    <Property Name="Cookie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JeLiKupljeno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="KosaraProizvod" Relationship="WebShopModel.FK_KosaraProizvod_Kosara" FromRole="Kosara" ToRole="KosaraProizvod" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JeLiIsporuceno" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="KosaraProizvod">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Kosara_ID" Type="Int32" />
+    <Property Name="Proizvod_ID" Type="Int32" />
+    <Property Name="Kolicina" Type="Int32" />
+    <NavigationProperty Name="Kosara" Relationship="WebShopModel.FK_KosaraProizvod_Kosara" FromRole="KosaraProizvod" ToRole="Kosara" />
+    <NavigationProperty Name="Proizvod" Relationship="WebShopModel.FK_KosaraProizvod_Proizvod" FromRole="KosaraProizvod" ToRole="Proizvod" />
+  </EntityType>
+  <EntityType Name="Proizvod">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Slika" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Opis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DatumDodavanje" Type="DateTime" Precision="0" />
+    <Property Name="Cijena" Type="Double" />
+    <Property Name="KratakOpis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Kategorija_ID" Type="Int32" />
+    <NavigationProperty Name="Kategorija" Relationship="WebShopModel.FK_Proizvod_Kategorija" FromRole="Proizvod" ToRole="Kategorija" />
+    <NavigationProperty Name="KosaraProizvod" Relationship="WebShopModel.FK_KosaraProizvod_Proizvod" FromRole="Proizvod" ToRole="KosaraProizvod" />
+    <Property Name="Kolicina" Type="Int32" />
+    <Property Name="ProdanaKolicina" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Slider">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Slika" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JeLiPrikazana" Type="Int64" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Uloga">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Opis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="User" Relationship="WebShopModel.FK_User_Uloga" FromRole="Uloga" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Broj_mobitela" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Uloga" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID_Uloga" Type="Int32" />
+    <NavigationProperty Name="Uloga1" Relationship="WebShopModel.FK_User_Uloga" FromRole="User" ToRole="Uloga" />
+  </EntityType>
+  <Association Name="FK_Proizvod_Kategorija">
+    <End Type="WebShopModel.Kategorija" Role="Kategorija" Multiplicity="0..1" />
+    <End Type="WebShopModel.Proizvod" Role="Proizvod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorija">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Proizvod">
+        <PropertyRef Name="Kategorija_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KosaraProizvod_Kosara">
+    <End Type="WebShopModel.Kosara" Role="Kosara" Multiplicity="0..1" />
+    <End Type="WebShopModel.KosaraProizvod" Role="KosaraProizvod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kosara">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="KosaraProizvod">
+        <PropertyRef Name="Kosara_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KosaraProizvod_Proizvod">
+    <End Type="WebShopModel.Proizvod" Role="Proizvod" Multiplicity="0..1" />
+    <End Type="WebShopModel.KosaraProizvod" Role="KosaraProizvod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proizvod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="KosaraProizvod">
+        <PropertyRef Name="Proizvod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Uloga">
+    <End Type="WebShopModel.Uloga" Role="Uloga" Multiplicity="0..1" />
+    <End Type="WebShopModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uloga">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="ID_Uloga" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

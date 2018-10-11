@@ -1,0 +1,158 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/Admin/adminlte.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="@Url.Action("index","home")" class="brand-link">
+                @*<img src="../../dist/img/AdminLTELogo.png"
+                    alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3"
+                    style="opacity: .8">*@
+                <span class="brand-text font-weight-light">Nazad na naslovnu</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    @*<div class="image">
+                            <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        </div>*@
+                    <div class="info">
+                        <a href="#" class="d-block">@User.Identity.Name</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("index","proizvodi")" class="nav-link">
+                                <i class="far fa-shopping-bag"></i>
+                                <p>
+                                    Proizvodi
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("index","brandovi")" class="nav-link">
+                                <i class="nav-icon fa fa-address-book"></i>
+                                <p>
+                                    Brandovi
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("index","users")" class="nav-link">
+                                <i class="nav-icon fa fa-user-md"></i>
+                                <p>
+                                    Korisnici
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("index","evidencija")" class="nav-link">
+                                <i class="nav-icon fa fa-th"></i>
+                                <p>
+                                    Evidencija
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("statistika","admin")" class="nav-link">
+                                <i class="nav-icon fa fa-pie-chart"></i>
+                                <p>
+                                    Statistika
+
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            
+
+            <!-- Main content -->
+            <section class="content">
+
+                <!-- Default box -->
+                <div class="card">
+
+                    <div class="card-body">
+                        @RenderBody()
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+
+                    </div>
+                    <!-- /.card-footer-->
+                </div>
+                <!-- /.card -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b></b> 
+            </div>
+            <strong>Copyright &copy; @DateTime.Now.Year <a href="#">Moj web shop</a>.</strong> 
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+
+    @Scripts.Render("~/bundles/jquery")
+
+    <script src="~/Scripts/Admin/adminlte.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/datatables.bootstrap.js"></script>
+    <script>    
+        $('#tablica').DataTable({
+            language:
+            {
+                url: "/Scripts/DataTables/prijevod.json"
+            }
+    });
+</script>
+</body>
+</html>

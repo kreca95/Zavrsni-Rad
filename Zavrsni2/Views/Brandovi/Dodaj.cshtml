@@ -1,0 +1,26 @@
+﻿@model Zavrsni2.Models.Brandovi
+
+@{
+    ViewBag.Title = "Dodaj";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+
+}
+
+<h2>Dodaj</h2>
+
+@using (Html.BeginForm("Create", "Brandovi", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(c => c.Ime)
+        @Html.TextBoxFor(c => c.Ime, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @*@Html.LabelFor(c => c.Slika)
+            @Html.TextBoxFor(c => c.Slika, new { @class = "form-control" })*@
+        <input type="file" name="file" />
+    </div>
+    @Html.HiddenFor(c => c.ID)
+    <button class="btn btn-success" type="submit">Sacuvajte</button>
+    <a style="margin-left: 121px;" class="btn btn-primary" href="@Url.Action("Index","Brandovi")">Nazad</a>
+
+}

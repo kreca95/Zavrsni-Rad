@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "MojeKupnje";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MojeKupnje</h2>
+<div class="container">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                ID Kupnje
+            </th>
+            <th>
+                Isporuka
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.kupnje)
+        {
+            if (item!=null)
+            {
+                <tr>
+                    <th>
+                        @item.ID
+                    </th>
+                    <th>
+                        @if (item.JeLiIsporuceno== true)
+                        {
+                        <p>Isporuceno</p>
+                        }
+                        else
+                        {
+                            <p>Nije isporuceno</p>
+                        }
+                    </th>
+                    <th>
+                        @Html.ActionLink("Detalji", "DetaljiMojeKupnje", new { id = item.ID }, new { @class = "btn btn-info" })
+                    </th>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+<p>
+</p>
+    </div>

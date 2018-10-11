@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Brandovi">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Slika" Type="varchar" MaxLength="50" />
+    <Property Name="Ime" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Kategorija">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Naziv" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Kosara">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Datum" Type="date" />
+    <Property Name="Cookie" Type="varchar" MaxLength="50" />
+    <Property Name="JeLiKupljeno" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="JeLiIsporuceno" Type="bit" />
+  </EntityType>
+  <EntityType Name="KosaraProizvod">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Kosara_ID" Type="int" />
+    <Property Name="Proizvod_ID" Type="int" />
+    <Property Name="Kolicina" Type="int" />
+  </EntityType>
+  <EntityType Name="Proizvod">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Slika" Type="varchar" MaxLength="200" />
+    <Property Name="Ime" Type="varchar" MaxLength="50" />
+    <Property Name="Opis" Type="varchar" MaxLength="50" />
+    <Property Name="DatumDodavanje" Type="date" />
+    <Property Name="Cijena" Type="float" />
+    <Property Name="KratakOpis" Type="varchar" MaxLength="50" />
+    <Property Name="Kategorija_ID" Type="int" />
+    <Property Name="Kolicina" Type="int" />
+    <Property Name="ProdanaKolicina" Type="int" />
+  </EntityType>
+  <EntityType Name="Slider">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Slika" Type="varchar" MaxLength="50" />
+    <Property Name="JeLiPrikazana" Type="bigint" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Uloga">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Naziv" Type="varchar" MaxLength="50" />
+    <Property Name="Opis" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ime" Type="varchar" MaxLength="50" />
+    <Property Name="Prezime" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Pass" Type="varchar" MaxLength="50" />
+    <Property Name="Broj_mobitela" Type="varchar" MaxLength="50" />
+    <Property Name="Uloga" Type="varchar" MaxLength="50" />
+    <Property Name="ID_Uloga" Type="int" />
+  </EntityType>
+  <Association Name="FK_KosaraProizvod_Kosara">
+    <End Role="Kosara" Type="Self.Kosara" Multiplicity="0..1" />
+    <End Role="KosaraProizvod" Type="Self.KosaraProizvod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kosara">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="KosaraProizvod">
+        <PropertyRef Name="Kosara_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KosaraProizvod_Proizvod">
+    <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="0..1" />
+    <End Role="KosaraProizvod" Type="Self.KosaraProizvod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proizvod">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="KosaraProizvod">
+        <PropertyRef Name="Proizvod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proizvod_Kategorija">
+    <End Role="Kategorija" Type="Self.Kategorija" Multiplicity="0..1" />
+    <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorija">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Proizvod">
+        <PropertyRef Name="Kategorija_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Uloga">
+    <End Role="Uloga" Type="Self.Uloga" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uloga">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="ID_Uloga" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebShopModelStoreContainer">
+    <EntitySet Name="Brandovi" EntityType="Self.Brandovi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kategorija" EntityType="Self.Kategorija" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kosara" EntityType="Self.Kosara" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KosaraProizvod" EntityType="Self.KosaraProizvod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proizvod" EntityType="Self.Proizvod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Slider" EntityType="Self.Slider" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Uloga" EntityType="Self.Uloga" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_KosaraProizvod_Kosara" Association="Self.FK_KosaraProizvod_Kosara">
+      <End Role="Kosara" EntitySet="Kosara" />
+      <End Role="KosaraProizvod" EntitySet="KosaraProizvod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KosaraProizvod_Proizvod" Association="Self.FK_KosaraProizvod_Proizvod">
+      <End Role="Proizvod" EntitySet="Proizvod" />
+      <End Role="KosaraProizvod" EntitySet="KosaraProizvod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proizvod_Kategorija" Association="Self.FK_Proizvod_Kategorija">
+      <End Role="Kategorija" EntitySet="Kategorija" />
+      <End Role="Proizvod" EntitySet="Proizvod" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Uloga" Association="Self.FK_User_Uloga">
+      <End Role="Uloga" EntitySet="Uloga" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

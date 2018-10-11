@@ -1,0 +1,307 @@
+﻿body {
+    position: relative;
+    background-color: rgb(233, 233, 233);
+    font-family: 'Roboto', sans-serif;
+}
+
+.su-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.su-back-element {
+    margin: 0;
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 430px;
+    height: 500px;
+    background-color: #fafafa;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.su-front-element {
+    margin: 0;
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.su-title-login {
+    height: 55px;
+    width: 100%;
+    margin-top: 50px;
+    border-left: 4px solid #faba00;
+    font-size: 30px;
+    color: #faba00;
+    padding-left: 50px;
+    line-height: 55px;
+}
+
+.su-content-login {
+    margin-top: 30px;
+    padding: 20px 50px;
+}
+
+    .su-content-login input {
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-bottom: 1px #808080 solid;
+        outline: none;
+        font-size: 20px;
+        bottom: 0px;
+        z-index: 1;
+    }
+
+    .su-content-login label {
+        color: #808080;
+        font-size: 20px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+.su-content-inner {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    float: left;
+    margin-bottom: 30px;
+}
+
+.bar {
+    width: 0px;
+    z-index: 2;
+    border-bottom: 3px solid #faba00;
+    transition: all 0.2s;
+    margin-left: 50%;
+    position: absolute;
+    bottom: 0px;
+}
+
+.su-content-login input:focus + .bar {
+    width: 100%;
+    margin-left: 0%;
+}
+
+.su-content-login input:valid ~ .label-username {
+    -webkit-transform: translate(-12%, -50%) scale(0.75);
+    transform: translate(-12%, -50%) scale(0.75);
+}
+
+.su-content-login input:focus ~ .label-username {
+    -webkit-transform: translate(-12%, -50%) scale(0.75);
+    transform: translate(-12%, -50%) scale(0.75);
+}
+
+.label-username {
+    position: absolute;
+    top: 10px;
+    z-index: 3;
+    transition: all 0.33s;
+}
+
+.su-content-login input:valid ~ .label-password {
+    -webkit-transform: translate(-12%, -50%) scale(0.75);
+    transform: translate(-12%, -50%) scale(0.75);
+}
+
+.su-content-login input:focus ~ .label-password {
+    -webkit-transform: translate(-12%, -50%) scale(0.75);
+    transform: translate(-12%, -50%) scale(0.75);
+}
+
+.label-password {
+    position: absolute;
+    top: 10px;
+    z-index: 3;
+    transition: all 0.33s;
+}
+
+.su-content-login .su-submit {
+    margin: 0;
+    margin-top: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    height: 60px;
+    border: 2px solid #faba00;
+    text-align: center;
+    line-height: 60px;
+    color: #faba00;
+    cursor: pointer;
+    filter: grayscale(100%);
+    transition: all 0.33s;
+    opacity: 0.4;
+    background-color: transparent;
+    font-size: 18px;
+    font-family: Roboto;
+    font-family: 'Roboto', sans-serif;
+}
+
+    .su-content-login .su-submit:hover {
+        filter: grayscale(1%);
+        opacity: 1;
+    }
+
+.su-lostpass-btn {
+    position: absolute;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    background-color: #faba00;
+    right: -60px;
+    top: 50px;
+    text-align: center;
+    line-height: 120px;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+    font-size: 60px;
+}
+
+.su-third-element {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0px;
+    height: 0px;
+    background-color: #faba00;
+    border-radius: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.2s;
+    overflow: hidden;
+}
+
+    .su-third-element.su-content-inner {
+        margin-top: 20px;
+    }
+
+.su-pass {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    float: left;
+}
+
+.su-pass-inner {
+    margin: 0;
+    margin-top: 10px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: #faba00;
+    cursor: pointer;
+    filter: grayscale(100%);
+    transition: all 0.33s;
+    opacity: 0.4;
+}
+
+    .su-pass-inner:hover {
+        filter: grayscale(1%);
+        transition: all 0.33s;
+        opacity: 1;
+    }
+
+.su-title-pass {
+    height: 50px;
+    width: 100%;
+    margin-top: 60px;
+    border-left: 4px solid #fff;
+    font-size: 28px;
+    color: #fff;
+    padding-left: 40px;
+    line-height: 50px;
+}
+
+.su-third-element .su-content-inner input {
+    background-color: #faba00;
+    color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+    font-size: 20px;
+    height: 40px;
+}
+
+.su-third-element .su-content-inner label {
+    color: #fff;
+}
+
+.su-third-element .su-content-inner .bar {
+    border-bottom: 2px solid #fff;
+}
+
+.su-third-element .su-content-inner .su-submit {
+    border: 2px solid #fff;
+    color: #fff;
+    margin-top: 50px;
+}
+
+.hidden {
+    display: none;
+}
+
+.brdr-rad-4 {
+    border-radius: 4px;
+    width: 470px;
+    height: 500px;
+}
+
+.pass-log {
+    width: 75%;
+    float: left;
+}
+
+.pass-x {
+    width: 25%;
+    float: right;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: all 0.33s;
+    font-size: 46px;
+}
+
+    .pass-x:hover {
+        opacity: 1;
+    }
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+.login-error {
+    color: rgba(255, 0, 0, 0.6);
+    text-align: center;
+}
+
+.login-error-pass {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    width: 100%;
+    float: left;
+    margin-top: 50px;
+}
+
+button:focus {
+    outline: none;
+}
