@@ -40,6 +40,8 @@ namespace Zavrsni2.Controllers
             proizvod.Slika = FileUpload.UploadFile(file);
 
             proizvod.DatumDodavanje = DateTime.Now;
+            proizvod.ProdanaKolicina = 0;
+            proizvod.Kolicina = 0;
             db.Proizvod.Add(proizvod);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -110,9 +110,8 @@ namespace Zavrsni2.Controllers
                 korisnik.Email = user.Email;
                 db.SaveChanges();
                 return View(user);
-                db.SaveChanges();
-                return View(user);
             }
+
             ViewBag.ID_Uloga = new SelectList(db.Uloga, "ID", "Naziv", user.ID_Uloga);
             return View(user);
         }

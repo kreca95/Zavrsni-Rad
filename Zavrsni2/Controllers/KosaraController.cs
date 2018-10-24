@@ -37,7 +37,7 @@ namespace Zavrsni2.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             if (!String.IsNullOrWhiteSpace(cookie))
             {
-                var kosarica = db.Kosara.Where(x => x.Cookie.Equals(cookie)).First();
+                var kosarica = db.Kosara.Where(x => x.Cookie.Equals(cookie)).FirstOrDefault();
                 if (kosarica != null)
                 {
                     var pr = db.KosaraProizvod.Where(x => x.Kosara_ID == kosarica.ID && x.Kolicina>0).Select(x=> new {x.Proizvod,x.Kolicina }).DistinctBy(x=> x.Proizvod.ID).ToList();
@@ -45,7 +45,16 @@ namespace Zavrsni2.Controllers
                 }
                 else
                 {
-                    return Json("fail",JsonRequestBehavior.AllowGet);
+                    Kosara novaKosara = new Kosara
+                    {
+                        Cookie = cookie,
+                        Datum = DateTime.Now
+                    };
+                    //huyaaaaaaaaaaaa
+                    db.Kosara.Add(novaKosara);
+                    db.SaveChanges();
+                    
+                    return Json("dodano",JsonRequestBehavior.AllowGet);
                 }
             }
             
@@ -59,21 +68,21 @@ namespace Zavrsni2.Controllers
 
             //kosara.JeLiKupljeno = "na cekanju";
             
-            if(kosara !=null)
+            if (kosara!=null)
             {
                 kosara.JeLiKupljeno = "na cekanju";
                 KosaraProizvod kosaProiz = new KosaraProizvod
                 {
                     Kosara_ID = kosara.ID,
                     Proizvod_ID = idProizvoda,
-                    Kolicina=1
+                    Kolicina = 1
                 };
-                
+
                 db.KosaraProizvod.Add(kosaProiz);
                 db.SaveChanges();
                 return Json(kosaProiz, JsonRequestBehavior.AllowGet);
-            }
-            else
+            }        
+            else if(kosara==null)
             {
                 Kosara novaKosara = new Kosara
                 {
@@ -81,14 +90,20 @@ namespace Zavrsni2.Controllers
                     Datum=DateTime.Now
                 };
                 db.Kosara.Add(novaKosara);
-                db.SaveChanges();
+                //db.SaveChanges();
 
                 KosaraProizvod kosaProiz = new KosaraProizvod
                 {
                     Kosara_ID = novaKosara.ID,
                     Proizvod_ID=idProizvoda
                 };
+                db.SaveChanges();
+
                 return Json(kosaProiz, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("opasan fail neki");
             }
         }
 

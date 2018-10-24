@@ -23,11 +23,10 @@
 
     var ctx = document.getElementById("myChart").getContext('2d');
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'pie',
         data: {
             labels:["@Model.Najprodavaniji[0].Ime","@Model.Najprodavaniji[1].Ime","@Model.Najprodavaniji[2].Ime","@Model.Najprodavaniji[3].Ime","@Model.Najprodavaniji[4].Ime"],
             datasets: [{
-                label: "",
                 data: ["@Model.Najprodavaniji[0].ProdanaKolicina", "@Model.Najprodavaniji[1].ProdanaKolicina", "@Model.Najprodavaniji[2].ProdanaKolicina", "@Model.Najprodavaniji[3].ProdanaKolicina", "@Model.Najprodavaniji[4].ProdanaKolicina"],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -49,13 +48,11 @@
             }]
         },
         options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
+            title: {
+                display: true,
+                text:"Najprodavaniji proizvodi"
+            },
+            
         }
     });
 
@@ -63,9 +60,9 @@
     var myChart = new Chart(ctx2, {
         type: 'bar',
         data: {
-            labels:["@Model.Najprodavaniji[0].Ime","@Model.Najprodavaniji[1].Ime","@Model.Najprodavaniji[2].Ime","@Model.Najprodavaniji[3].Ime","@Model.Najprodavaniji[4].Ime"],
+            labels:["@Model.Najneprodavaniji[0].Ime","@Model.Najneprodavaniji[1].Ime","@Model.Najneprodavaniji[2].Ime","@Model.Najneprodavaniji[3].Ime","@Model.Najneprodavaniji[4].Ime"],
             datasets: [{
-                label: '# of Votes',
+                label: 'Najneprodavaniji proizvodi',
                 data: ["@Model.Najneprodavaniji[0].ProdanaKolicina", "@Model.Najneprodavaniji[1].ProdanaKolicina", "@Model.Najneprodavaniji[2].ProdanaKolicina", "@Model.Najneprodavaniji[3].ProdanaKolicina", "@Model.Najneprodavaniji[4].ProdanaKolicina"],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -87,6 +84,10 @@
             }]
         },
         options: {
+            title: {
+                display: true,
+                text:"Najneprodavaniji proizvodi"
+            },
             scales: {
                 yAxes: [{
                     ticks: {

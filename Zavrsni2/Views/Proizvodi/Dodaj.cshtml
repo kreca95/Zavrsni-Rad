@@ -18,6 +18,14 @@
             @Html.TextBoxFor(c => c.Opis, new { @class = "form-control" })
         </div>
         <div class="form-group">
+            @Html.LabelFor(c => c.KratakOpis)
+            @Html.TextBoxFor(c => c.KratakOpis, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(c => c.Kolicina)
+            @Html.TextBoxFor(c => c.Kolicina, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
             @*@Html.LabelFor(c => c.Slika)
                 @Html.TextBoxFor(c => c.Slika, new { @class = "form-control" })*@
             <input type="file" name="file" />
@@ -26,6 +34,7 @@
             @Html.LabelFor(c => c.Cijena)
             @Html.TextBoxFor(c => c.Cijena, new { @class = "form-control" })
         </div>
+
         <div class="form-group">
             @Html.DropDownListFor(model => model.Kategorija_ID, new SelectList(ViewBag.Kategorija, "ID", "Naziv"), "Izaberite kategoriju", new { @class = "form-control" })
         </div>

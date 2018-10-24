@@ -4,6 +4,7 @@
 }
 <link rel="stylesheet" type="text/css" href="~/Content/Proizvodi.css">
 <style>
+
     td {
         border-collapse: separate;
         border-spacing: 1em;
@@ -155,7 +156,7 @@
                     </div>
 
                     <div class="space-ten"></div>
-                    <div class btn-ground text-center">
+                    <div class="btn-ground text-center">
                         @if (item.Kolicina < 1)
                         {
                             <button value="@item.ID" id="" type="button" class="btn btn-warning btn-sm"> Nema u skladistu</button>
@@ -179,16 +180,15 @@
         }
 
     </div>
-    <aside class="col-md-3">
+    <aside class="col-sm-3">
 
         <!-- Cart submit form -->
-        <form action="#" method="POST">
             <!-- SmartCart element -->
             <div id="smartcart" class="panel panel-default sc-cart sc-theme-default">
                 <input type="hidden" name="cart_list" id="cart_list" />
                 <div class="panel-heading sc-cart-heading">
-                    Shopping Cart
-                    <span class="sc-cart-count badge">1</span>
+                    Korpa
+                    <span class="sc-cart-count badge">0</span>
                 </div>
 
                 <div class="list-group sc-cart-item-list">
@@ -212,7 +212,7 @@
                                     <td class="cijena"></td>
                                     <td class="kolicina"></td>
                                     <td class="azurirajTD"></td>
-                                    <td class="izbrisi"></td>
+                                    <td class="izbrisi sc-cart-remove"></td>
 
                                 </tr>
                             </tbody>
@@ -224,7 +224,7 @@
                     <div class="sc-cart-summary">
                         <div class="sc-cart-summary-subtotal">
                             Ukupno:
-                            <span class="sc-cart-subtotal">$5,435.50</span>
+                            <span class="sc-cart-subtotal">0 KM</span>
                         </div>
                     </div>
                     <div class="sc-cart-toolbar">
@@ -233,7 +233,6 @@
                     </div>
                 </div>
             </div>
-        </form>
 
     </aside>
 </div>
@@ -257,7 +256,9 @@
 
                         <p id="opis"></p>
                         <h3 class="cost">
-                            <span class="" id="cijena">KM</span> @*POPUST*@@*<small class="pre-cost"><span class="glyphicon glyphicon-usd"></span> 60.00</small>*@
+                            <span class="" id="cijena">KM</span> 
+                            @*POPUST*@
+                            @*<small class="pre-cost"><span class="glyphicon "></span> 60.00 KM</small>*@
                         </h3>
                         @*<div class="row">
 
@@ -377,14 +378,14 @@
                         naziv.append(`<tr><td>${item.Proizvod.Ime}</td>"`);
                         cijena.append(`<tr><td>${item.Proizvod.Cijena}</td>`);
                         kolicina.append(`<tr><td clas=aa"><input data-id=${item.Proizvod.ID} type="number" min="1" max="1000" class="sc-cart-item-qty" value="${item.Kolicina}">`);
-                        azuriraj.append(`<tr> <td><button type="submit" class="btn azuriraj" data-id=${item.Proizvod.ID} >Azuriraj</button></td></tr>"`)
-                        izbrisi.append(`<tr><td><a href="#"  class="izbrisiTD glyphicon glyphicon-remove" style="color:red" data-id=${item.Proizvod.ID}></td></tr>`)
+                        azuriraj.append(`<tr> <td><button type="submit" class="btn btn-sm azuriraj" data-id=${item.Proizvod.ID} >Azuriraj</button></td></tr>"`)
+                        izbrisi.append(`<tr><td><a href="#"  class="izbrisiTD " style="color:red;font-size:15px" data-id=${item.Proizvod.ID}>x</td></tr>`)
                         suma += item.Proizvod.Cijena * item.Kolicina
                     });
 
                     $(".badge").html(data.length);
                     $(".sc-cart-subtotal").text(suma.toString()+" KM");
-
+                    
                 },
                 error: (function () {
                     //$(".errorLogin").show();
@@ -461,7 +462,7 @@
         }
 
     //ne radi
-    function PovecajKolicinu(id,cookie,kolicina)
+    @*function PovecajKolicinu(id,cookie,kolicina)
     {
 
 
@@ -476,7 +477,7 @@
             console.log("ili ne radi");
             }
         })
-    }
+    }*@
     //DODAVANJE U KOSARU
     $("button.dodaj").click(function () {
         var naziv = $(".tr .naziv");
@@ -490,7 +491,7 @@
         var proizvod = $(this);
 
         //console.log(proizvod);
-        PovecajKolicinu(id, cookie, Dohvati("", id));
+        //PovecajKolicinu(id, cookie, Dohvati("", id));
         //checkBasket();
 
         $.ajax({
@@ -500,8 +501,8 @@
         success: function (data) {
 
             //console.log(data);
-            console.log("TESTIRANJE KLIKA NA BATN DODAJ");
-            checkBasket();
+            console.log(data);
+            //checkBasket();
             //$(this).addClass("disabled");
         },
         error: function (jqXHR, exception, errorThrown ) {
@@ -593,6 +594,7 @@
 
                 console.log("radiiiii");
                 delete_cookie("webShop");
+                location.reload();
             },
             error: function () {
 
