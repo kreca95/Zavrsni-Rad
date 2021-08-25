@@ -22,7 +22,7 @@ namespace Zavrsni2.Models
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            //throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<Brandovi> Brandovi { get; set; }
@@ -31,7 +31,6 @@ namespace Zavrsni2.Models
         public virtual DbSet<KosaraProizvod> KosaraProizvod { get; set; }
         public virtual DbSet<Proizvod> Proizvod { get; set; }
         public virtual DbSet<Slider> Slider { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Uloga> Uloga { get; set; }
         public virtual DbSet<User> User { get; set; }
     }

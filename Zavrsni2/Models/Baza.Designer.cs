@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\kresi\source\repos\Zavrsni2\Zavrsni2\Models\Baza.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\cornet1\Desktop\soče zavrsni\Zavrsni-Rad\Zavrsni2\Models\Baza.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

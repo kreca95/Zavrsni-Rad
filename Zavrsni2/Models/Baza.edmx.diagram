@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="WebShopModel.KosaraProizvod" Width="1.5" PointX="5.25" PointY="1.375" />
         <EntityTypeShape EntityType="WebShopModel.Proizvod" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="WebShopModel.Slider" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="WebShopModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="8.75" />
         <EntityTypeShape EntityType="WebShopModel.Uloga" Width="1.5" PointX="5.75" PointY="5.5" />
         <EntityTypeShape EntityType="WebShopModel.User" Width="1.5" PointX="8" PointY="5" />
         <AssociationConnector Association="WebShopModel.FK_Proizvod_Kategorija" />

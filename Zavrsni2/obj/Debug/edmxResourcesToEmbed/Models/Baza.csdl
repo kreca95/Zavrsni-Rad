@@ -7,7 +7,6 @@
     <EntitySet Name="KosaraProizvod" EntityType="WebShopModel.KosaraProizvod" />
     <EntitySet Name="Proizvod" EntityType="WebShopModel.Proizvod" />
     <EntitySet Name="Slider" EntityType="WebShopModel.Slider" />
-    <EntitySet Name="sysdiagrams" EntityType="WebShopModel.sysdiagrams" />
     <EntitySet Name="Uloga" EntityType="WebShopModel.Uloga" />
     <EntitySet Name="User" EntityType="WebShopModel.User" />
     <AssociationSet Name="FK_Proizvod_Kategorija" Association="WebShopModel.FK_Proizvod_Kategorija">
@@ -90,16 +89,6 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Slika" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="JeLiPrikazana" Type="Int64" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="Uloga">
     <Key>
